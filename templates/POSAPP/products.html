@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Products</title>
+
+    {% load static %}
+
+    <link rel="stylesheet"
+          href="{% static 'posApp/css/style.css' %}">
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        🛒 <span>Grocery</span> Shop
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{% url 'home' %}">
+            🏠 Home
+        </a>
+
+        <a href="{% url 'products' %}" class="active">
+            📦 Products
+        </a>
+
+        <a href="{% url 'add_product' %}">
+            ➕ Add Product
+        </a>
+
+        <a href="{% url 'cart' %}">
+            🛒 Cart
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ================= PAGE HEADER ================= -->
+
+<section class="products-page-header">
+
+    <div>
+
+        <h1>
+            🌿 Our Products
+        </h1>
+
+        <p>
+            Fresh and quality groceries for your daily needs
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= FILTERS ================= -->
+
+<div class="filter-area">
+
+
+    <!-- SEARCH -->
+
+    <input
+        type="text"
+        class="search-box"
+        placeholder="🔍 Search products...">
+
+
+    <!-- CATEGORY -->
+
+    <select class="category-box">
+
+        <option>
+            🌿 All Categories
+        </option>
+
+        <option>
+            Vegetables
+        </option>
+
+        <option>
+            Fruits
+        </option>
+
+        <option>
+            Leafy Greens
+        </option>
+
+    </select>
+
+
+
+    <!-- ================= PRICE SORTING ================= -->
+
+    <form method="GET" class="sort-form">
+
+        <select
+            name="sort"
+            class="sort-box"
+            onchange="this.form.submit()">
+
+
+            <option value=""
+                {% if not request.GET.sort %}
+                    selected
+                {% endif %}>
+
+                ↕ Sort by: Name
+
+            </option>
+
+
+            <option value="low"
+                {% if request.GET.sort == 'low' %}
+                    selected
+                {% endif %}>
+
+                💰 Price: Low to High
+
+            </option>
+
+
+            <option value="high"
+                {% if request.GET.sort == 'high' %}
+                    selected
+                {% endif %}>
+
+                💰 Price: High to Low
+
+            </option>
+
+
+        </select>
+
+    </form>
+
+
+
+    <!-- RESET -->
+
+    <a href="{% url 'products' %}"
+       class="reset-btn">
+
+        ⟳ Reset
+
+    </a>
+
+
+</div>
+
+
+
+<!-- ================= PRODUCTS ================= -->
+
+<section class="products-section">
+
+
+    <div class="product-grid">
+
+
+        <!-- ================= DATABASE PRODUCTS ================= -->
+
+        {% for product in products %}
+
+
+        <div class="product-card">
+
+
+            <!-- PRODUCT IMAGE -->
+
+            {% if product.image %}
+
+                <img
+                    src="{{ product.image.url }}"
+                    alt="{{ product.name }}"
+                    class="product-image">
+
+            {% else %}
+
+                <div class="no-image">
+
+                    🛒
+
+                </div>
+
+            {% endif %}
+
+
+
+            <!-- PRODUCT INFORMATION -->
+
+            <div class="product-info">
+
+
+                <h3>
+
+                    {{ product.name }}
+
+                </h3>
+
+
+                <p class="category">
+
+                    🌿 {{ product.category }}
+
+                </p>
+
+
+
+                <div class="product-details">
+
+
+                    <span class="price">
+
+                        ₹{{ product.price }}
+
+                    </span>
+
+
+                    <span class="quantity">
+
+                        📦 Qty: {{ product.quantity }}
+
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- ================= ADD TO CART ================= -->
+
+                {% if product.quantity > 0 %}
+
+                    <a
+                        href="{% url 'add_to_cart' product.id %}"
+                        class="cart-btn">
+
+                        🛒 Add to Cart
+
+                    </a>
+
+                {% else %}
+
+                    <button
+                        class="cart-btn"
+                        disabled>
+
+                        ❌ Out of Stock
+
+                    </button>
+
+                {% endif %}
+
+
+
+                <!-- ================= DELETE ================= -->
+
+                <a
+                    href="{% url 'delete_product' product.id %}"
+                    class="delete-btn">
+
+                    🗑 Delete
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+        {% empty %}
+
+
+        <!-- ================= NO PRODUCTS ================= -->
+
+        <div class="no-products">
+
+            <h2>
+
+                😔 No Products Available
+
+            </h2>
+
+            <p>
+
+                Please add some products first.
+
+            </p>
+
+            <br>
+
+            <a
+                href="{% url 'add_product' %}"
+                class="view-btn">
+
+                ➕ Add Product
+
+            </a>
+
+        </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    🌿 © 2026 Grocery Shop. All rights reserved. 🌿
+
+</footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Grocery Shop</title>
+
+    {% load static %}
+
+    <link rel="stylesheet"
+          href="{% static 'posApp/css/style.css' %}">
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🛒 <span>Grocery</span> Shop
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{% url 'home' %}" class="active">
+            🏠 Home
+        </a>
+
+        <a href="{% url 'products' %}">
+            📦 Products
+        </a>
+
+        <a href="{% url 'add_product' %}">
+            ➕ Add Product
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <p class="welcome">
+            🌿 Welcome to our
+        </p>
+
+        <h1>
+            Grocery Shop
+        </h1>
+
+        <p class="hero-text">
+            Fresh groceries, better prices, healthier you!
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="{% url 'products' %}"
+               class="view-btn">
+                🛒 View Products
+            </a>
+
+            <a href="{% url 'add_product' %}"
+               class="add-btn">
+                ➕ Add Product
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-image">
+
+        <img
+            src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1000&q=90"
+            alt="Fresh Grocery">
+
+    </div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+
+<section class="products-section">
+
+    <h2>
+        🌿 Available Products
+    </h2>
+
+    <p class="section-text">
+        Fresh and quality groceries for your daily needs
+    </p>
+
+
+    <div class="product-grid">
+
+
+        {% for product in products %}
+
+        <div class="product-card">
+
+            {% if product.image %}
+
+            <img
+                src="{{ product.image.url }}"
+                alt="{{ product.name }}"
+                class="product-image">
+
+            {% else %}
+
+            <div class="no-image">
+                🛒
+            </div>
+
+            {% endif %}
+
+
+            <div class="product-info">
+
+                <h3>
+                    {{ product.name }}
+                </h3>
+
+                <p class="category">
+                    🌿 {{ product.category }}
+                </p>
+
+                <div class="product-details">
+
+                    <span class="price">
+                        ₹{{ product.price }}
+                    </span>
+
+                    <span class="quantity">
+                        📦 Qty: {{ product.quantity }}
+                    </span>
+
+                </div>
+
+                <button class="cart-btn">
+                    🛒 Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+
+        <!-- TOMATO -->
+
+        <div class="product-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=90"
+                class="product-image"
+                alt="Tomato">
+
+            <div class="product-info">
+
+                <h3>Tomato</h3>
+
+                <p class="category">
+                    🌿 Vegetables
+                </p>
+
+                <div class="product-details">
+
+                    <span class="price">₹40</span>
+
+                    <span class="quantity">
+                        📦 Qty: 10
+                    </span>
+
+                </div>
+
+                <button class="cart-btn">
+                    🛒 Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- BANANA -->
+
+        <div class="product-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=90"
+                class="product-image"
+                alt="Banana">
+
+            <div class="product-info">
+
+                <h3>Banana</h3>
+
+                <p class="category">
+                    🍌 Fruits
+                </p>
+
+                <div class="product-details">
+
+                    <span class="price">₹60</span>
+
+                    <span class="quantity">
+                        📦 Qty: 15
+                    </span>
+
+                </div>
+
+                <button class="cart-btn">
+                    🛒 Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARROT -->
+
+        <div class="product-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1445282768818-728615cc910a?auto=format&fit=crop&w=600&q=90"
+                class="product-image"
+                alt="Carrot">
+
+            <div class="product-info">
+
+                <h3>Carrot</h3>
+
+                <p class="category">
+                    🌿 Vegetables
+                </p>
+
+                <div class="product-details">
+
+                    <span class="price">₹50</span>
+
+                    <span class="quantity">
+                        📦 Qty: 12
+                    </span>
+
+                </div>
+
+                <button class="cart-btn">
+                    🛒 Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- APPLE -->
+
+        <div class="product-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=90"
+                class="product-image"
+                alt="Apple">
+
+            <div class="product-info">
+
+                <h3>Apple</h3>
+
+                <p class="category">
+                    🍎 Fruits
+                </p>
+
+                <div class="product-details">
+
+                    <span class="price">₹80</span>
+
+                    <span class="quantity">
+                        📦 Qty: 8
+                    </span>
+
+                </div>
+
+                <button class="cart-btn">
+                    🛒 Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- BROCCOLI -->
+
+        <div class="product-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=600&q=90"
+                class="product-image"
+                alt="Broccoli">
+
+            <div class="product-info">
+
+                <h3>Broccoli</h3>
+
+                <p class="category">
+                    🌿 Vegetables
+                </p>
+
+                <div class="product-details">
+
+                    <span class="price">₹70</span>
+
+                    <span class="quantity">
+                        📦 Qty: 10
+                    </span>
+
+                </div>
+
+                <button class="cart-btn">
+                    🛒 Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    🌿 © 2026 Grocery Shop. All rights reserved. 🌿
+
+</footer>
+
+
+</body>
+
+</html>

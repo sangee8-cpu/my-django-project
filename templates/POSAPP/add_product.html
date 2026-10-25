@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Add Product</title>
+
+    {% load static %}
+
+    <link rel="stylesheet"
+          href="{% static 'posApp/css/style.css' %}">
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🛒 <span>Grocery</span> Shop
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{% url 'home' %}">
+            🏠 Home
+        </a>
+
+        <a href="{% url 'products' %}">
+            📦 Products
+        </a>
+
+        <a href="{% url 'add_product' %}" class="active">
+            ➕ Add Product
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ADD PRODUCT -->
+
+<section class="add-page">
+
+    <div class="add-product-card">
+
+
+        <!-- FORM -->
+
+        <div class="add-form">
+
+            <div class="add-title">
+
+                <div class="plus-circle">
+                    +
+                </div>
+
+                <div>
+
+                    <h1>
+                        Add Grocery Product
+                    </h1>
+
+                    <p>
+                        Add fresh and quality products to your store
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form method="POST"
+                  enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+
+                <label>
+                    Product Name
+                </label>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter product name"
+                    required>
+
+
+                <label>
+                    Category
+                </label>
+
+                <input
+                    type="text"
+                    name="category"
+                    placeholder="Enter category (e.g. Vegetables, Fruits)"
+                    required>
+
+
+                <label>
+                    Price
+                </label>
+
+                <input
+                    type="number"
+                    name="price"
+                    placeholder="Enter price (₹)"
+                    step="0.01"
+                    required>
+
+
+                <label>
+                    Quantity
+                </label>
+
+                <input
+                    type="number"
+                    name="quantity"
+                    placeholder="Enter quantity"
+                    required>
+
+
+                <label>
+                    Product Image
+                </label>
+
+                <input
+                    type="file"
+                    name="image"
+                    accept="image/*">
+
+
+                <label>
+                    Description
+                </label>
+
+                <textarea
+                    name="description"
+                    placeholder="Enter product description"></textarea>
+
+
+                <button
+                    type="submit"
+                    class="submit-btn">
+
+                    ➕ Add Product
+
+                </button>
+
+            </form>
+
+
+            <a href="{% url 'products' %}"
+               class="back-link">
+
+                ← Back to Products
+
+            </a>
+
+        </div>
+
+
+        <!-- RIGHT IMAGE -->
+
+        <div class="add-image">
+
+            <img
+                src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=700&q=90"
+                alt="Fresh Products">
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    🌿 © 2026 Grocery Shop. All rights reserved. 🌿
+
+</footer>
+
+
+</body>
+
+</html>

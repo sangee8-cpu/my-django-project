@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Cart</title>
+
+    {% load static %}
+
+    <link rel="stylesheet"
+          href="{% static 'posApp/css/style.css' %}">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🛒 <span>Grocery</span> Shop
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{% url 'home' %}">
+            🏠 Home
+        </a>
+
+        <a href="{% url 'products' %}">
+            📦 Products
+        </a>
+
+        <a href="{% url 'add_product' %}">
+            ➕ Add Product
+        </a>
+
+        <a href="{% url 'cart' %}" class="active">
+            🛒 Cart
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= CART HEADER ================= -->
+
+<section class="products-page-header">
+
+    <div>
+
+        <h1>
+            🛒 Shopping Cart
+        </h1>
+
+        <p>
+            Review your selected grocery products
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CART ================= -->
+
+<section class="cart-section">
+
+    {% if cart_products %}
+
+        <div class="cart-container">
+
+            {% for item in cart_products %}
+
+                <div class="cart-item">
+
+                    <!-- PRODUCT IMAGE -->
+
+                    <div class="cart-image">
+
+                        {% if item.product.image %}
+
+                            <img
+                                src="{{ item.product.image.url }}"
+                                alt="{{ item.product.name }}">
+
+                        {% else %}
+
+                            🛒
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- PRODUCT DETAILS -->
+
+                    <div class="cart-details">
+
+                        <h2>
+                            {{ item.product.name }}
+                        </h2>
+
+                        <p>
+                            🌿 {{ item.product.category }}
+                        </p>
+
+                        <p>
+                            💰 Price: ₹{{ item.product.price }}
+                        </p>
+
+                        <p>
+                            📦 Quantity: {{ item.quantity }}
+                        </p>
+
+                        <h3>
+                            Subtotal: ₹{{ item.subtotal }}
+                        </h3>
+
+                    </div>
+
+
+                    <!-- REMOVE -->
+
+                    <div class="cart-actions">
+
+                        <a
+                            href="{% url 'remove_from_cart' item.product.id %}"
+                            class="delete-btn">
+
+                            🗑 Remove
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+
+            <!-- TOTAL -->
+
+            <div class="cart-total">
+
+                <h2>
+                    Total Amount: ₹{{ total }}
+                </h2>
+
+                <div class="cart-buttons">
+
+                    <a
+                        href="{% url 'products' %}"
+                        class="continue-btn">
+
+                        ← Continue Shopping
+
+                    </a>
+
+                    <a
+                        href="{% url 'checkout' %}"
+                        class="checkout-btn">
+
+                        Proceed to Checkout →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    {% else %}
+
+        <!-- EMPTY CART -->
+
+        <div class="empty-cart">
+
+            <h2>
+                🛒 Your Cart is Empty
+            </h2>
+
+            <p>
+                Add some grocery products to your cart.
+            </p>
+
+            <br>
+
+            <a
+                href="{% url 'products' %}"
+                class="view-btn">
+
+                🛍 View Products
+
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    🌿 © 2026 Grocery Shop. All rights reserved. 🌿
+
+</footer>
+
+
+</body>
+
+</html>
